@@ -64,6 +64,7 @@ class InstanciaAsignatura(models.Model):
     alumnosInscritos = models.IntegerField(default=50)
     anio = models.Charfield(max_lenth=4)
     semestre = models.CharField(max_length=1, choices=SELSEM)
+    profesor = models.CharField(max_length=50)
     
     def __unicode__(self):
         return self.anio + self.semestre
