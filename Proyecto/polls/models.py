@@ -25,8 +25,8 @@ class Choice(models.Model):
         
 class Estudiante(models.Model):
     nombre = models.CharField(max_length=50)
-    apellidoPaterno = models.Charfield(max_length=50)
-    apellidoMaterno = models.Charfield(max_length=50)
+    apellidoPaterno = models.CharField(max_length=50)
+    apellidoMaterno = models.CharField(max_length=50)
     rut = models.CharField(max_length=10, unique=True)
     direccion = models.CharField(max_length=50)
     correoElectronico = models.CharField(max_length=50)
@@ -62,7 +62,7 @@ class InstanciaAsignatura(models.Model):
     )
     asignatura = models.ForeignKey(Asignatura)
     alumnosInscritos = models.IntegerField(default=50)
-    anio = models.Charfield(max_lenth=4)
+    anio = models.CharField(max_length=4)
     semestre = models.CharField(max_length=1, choices=SELSEM)
     profesor = models.CharField(max_length=50)
     
@@ -95,7 +95,7 @@ class InscripcionAsignatura(models.Model):
     )
     estudiante = models.ForeignKey(Estudiante)
     instancia = models.ForeignKey(InstanciaAsignatura)
-    estadoInscripcion = models.ForeinKey(EstadoInscripcion)
+    estadoInscripcion = models.ForeignKey(EstadoInscripcion)
     estadoFinal = models.CharField(max_length=1, choices=SELAS)
     notaFinal = models.IntegerField(default=1)
     
