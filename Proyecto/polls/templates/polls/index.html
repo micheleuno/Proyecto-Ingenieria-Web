@@ -1,6 +1,57 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+{% if user.is_authenticated %}
+<li>User: {{ user.get_username }}</li>
+
+	{% ifequal user.profile.role 1%}
+		<li>Perfil actual: Estudiante </li>
+
+
+
+
+		
+	{% endifequal %} 
+	{% ifequal user.profile.role 2%}
+		<li>Perfil actual: Profesor </li>
+
+
+
+
+		
+	{% endifequal %} 
+	{% ifequal user.profile.role 3%}
+		<li>Perfil actual: Supervisor </li>
+
+
+
+
+
+	{% endifequal %} 
+
+
+
+	 <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+
+	{% else %}
+	 	<li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+	
+
+
+
+
+
+ 	
+	
+
+
+
+
+
+	
+{% endif %} 
+
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
