@@ -9,7 +9,7 @@ from django.utils import timezone
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
-    def __unicode__(self):
+    def __str__(self):
         return self.question_text
     def was_published_recently(self):
     	now = timezone.now()
@@ -20,7 +20,7 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
-    def __unicode__(self):
+    def __str__(self):
         return self.choice_text
         
 class Estudiante(models.Model):
@@ -31,28 +31,28 @@ class Estudiante(models.Model):
     direccion = models.CharField(max_length=50)
     correoElectronico = models.CharField(max_length=50)
     
-    def __unicode__(self):
-        return self.nombre + self.apellidoPaterno + self.apellidoMaterno
+    def __str__(self):
+        return self.nombre +" " + self.apellidoPaterno +" " + self.apellidoMaterno
 
 class Carrera(models.Model):
     nombre = models.CharField(max_length=50, unique=True)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.nombre
 
 class MallaCurricular(models.Model):
     carrera = models.ForeignKey(Carrera)
     version = models.CharField(max_length=50)
     
-    def __unicode__(self):
-        return self.version
+    def __str__(self):
+        return self.carrera
         
 class Asignatura(models.Model):
     mallaCurricular = models.ForeignKey(MallaCurricular)
     nombre = models.CharField(max_length=50)
     maxAlumnos = models.IntegerField(default=50)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.nombre
         
 class InstanciaAsignatura(models.Model):
@@ -66,7 +66,7 @@ class InstanciaAsignatura(models.Model):
     semestre = models.CharField(max_length=1, choices=SELSEM)
     profesor = models.CharField(max_length=50)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.anio + self.semestre
 
 class EstadoInscripcion(models.Model):
@@ -76,7 +76,7 @@ class EstadoInscripcion(models.Model):
     )
     estado = models.CharField(max_length=1, choices=SELINS)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.estado
         
 class MatriculaMalla(models.Model):
@@ -84,7 +84,7 @@ class MatriculaMalla(models.Model):
     estudiante = models.ForeignKey(Estudiante)
     asignaturasAprobadas = models.IntegerField(default=0)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.asignaturasAprobadas
 
 class InscripcionAsignatura(models.Model):
@@ -99,6 +99,6 @@ class InscripcionAsignatura(models.Model):
     estadoFinal = models.CharField(max_length=1, choices=SELAS)
     notaFinal = models.IntegerField(default=1)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.asignaturasAprobadas
         
