@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.http import Http404
-from .models import Question, Choice
+from .models import Question, Choice, InstanciaAsignatura
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -16,6 +16,9 @@ from django.contrib.auth.decorators import login_required
 class IndexView(LoginRequiredMixin, generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
+
+    model = InstanciaAsignatura
+    
 
     def get_queryset(self):
         """Return the last five published questions."""

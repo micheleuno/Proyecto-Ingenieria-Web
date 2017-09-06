@@ -48,7 +48,7 @@ class MallaCurricular(models.Model):
     version = models.CharField(max_length=50)
     
     def __str__(self):
-        return self.carrera
+        return self.carrera.nombre
         
 class Asignatura(models.Model):
     mallaCurricular = models.ForeignKey(MallaCurricular)
@@ -70,7 +70,7 @@ class InstanciaAsignatura(models.Model):
     profesor = models.CharField(max_length=50)
     
     def __str__(self):
-        return self.anio + self.semestre
+        return self.asignatura.nombre+" "+self.anio +" "+ self.semestre+" Semestre"
 
 class EstadoInscripcion(models.Model):
     SELINS = (
@@ -103,7 +103,7 @@ class InscripcionAsignatura(models.Model):
     notaFinal = models.IntegerField(default=1)
     
     def __str__(self):
-        return self.asignaturasAprobadas
+        return self.estudiante.nombre+" "+self.instancia.asignatura.nombre
         
 class Profile(models.Model):
     STUDENT = 1
