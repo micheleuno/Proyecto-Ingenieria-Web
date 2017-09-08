@@ -3,61 +3,18 @@
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
 
 {% if user.is_authenticated %}
-<li>User: {{ user.get_username }}</li>
 
-	{% ifequal user.profile.role 1%}
-		<li>Perfil actual: Estudiante </li>
-
-			
-
-
-		
-	{% endifequal %} 
-	{% ifequal user.profile.role 2%}
-		<li>Perfil actual: Profesor </li>
-
-
-
-
-		
-	{% endifequal %} 
-	{% ifequal user.profile.role 3%}
-		<li>Perfil actual: Supervisor </li>
-		<li>Title: {{ instanciaasignatura.asignatura.nombre }} </li>
-
-
-
-
+	{% ifequal user.profile.role 1%} <!--Estudiante-->		
+		 <meta http-equiv="REFRESH" content="0;url=/polls/estudiante">		
 	{% endifequal %} 
 
+	{% ifequal user.profile.role 2%} <!--Profesor-->
+	 <meta http-equiv="REFRESH" content="0;url=/polls/profesor">
+	{% endifequal %} 
 
-
-	 <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
-
-	{% else %}
-	 	<li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-	
-
-
-
-
-
- 	
-	
-
-
-
-
-
+	{% ifequal user.profile.role 3%}  <!--Supervisor-->
+		 <meta http-equiv="REFRESH" content="0;url=/polls/supervisor">
+	{% endifequal %}
 	
 {% endif %} 
 
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-       <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
