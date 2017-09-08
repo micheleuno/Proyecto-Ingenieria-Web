@@ -1,6 +1,5 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
 
 {% if user.is_authenticated %}
 
@@ -12,8 +11,8 @@
 	 <meta http-equiv="REFRESH" content="0;url=/polls/profesor">
 	{% endifequal %} 
 
-	{% ifequal user.profile.role 3%}  <!--Supervisor-->
-		 <meta http-equiv="REFRESH" content="0;url=/polls/supervisor">
+	{% ifequal user.profile.role 3%}  <!--Administrador-->
+		 <meta http-equiv="REFRESH" content="0;url=/polls/administrador">
 	{% endifequal %}
 	
 {% endif %} 
