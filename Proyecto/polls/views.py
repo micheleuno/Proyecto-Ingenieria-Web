@@ -2,11 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.http import Http404
-from .models import Question, Choice, InstanciaAsignatura
+from .models import Question, Choice, InstanciaAsignatura,User
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.urls import reverse
+from django.shortcuts import redirect
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,6 +25,12 @@ class IndexView(LoginRequiredMixin, generic.ListView):
         return Question.objects.filter(
         pub_date__lte=timezone.now()
     ).order_by('-pub_date')[:5]
+
+def estudiante(request):
+    return HttpResponse("Hola, estás en estudiante")
+    
+def post_view(request):
+    return redirect('/polls/estudiante/')
 
 class DetailView(generic.DetailView):
     model = Question
