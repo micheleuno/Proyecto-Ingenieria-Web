@@ -11,7 +11,7 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
+from django.views.generic import TemplateView
 # Create your views here.
 class IndexView(LoginRequiredMixin, generic.ListView):
     template_name = 'polls/index.html'
@@ -26,11 +26,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
         pub_date__lte=timezone.now()
     ).order_by('-pub_date')[:5]
 
-def estudiante(request):
-    return HttpResponse("Hola, estás en estudiante")
     
-def post_view(request):
-    return redirect('/polls/estudiante/')
 
 class DetailView(generic.DetailView):
     model = Question
@@ -40,6 +36,17 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+
+class Estudiante(TemplateView):
+	template_name = 'polls/estudiante.html'
+		
+class Profesor(TemplateView):
+	template_name = 'polls/profesor.html'
+
+class Administrador(TemplateView):
+	template_name = 'polls/administrador.html'
+
+
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

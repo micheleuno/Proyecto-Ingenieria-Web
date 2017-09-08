@@ -8,5 +8,7 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
     url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
-    url(r'^estudiante/$', views.estudiante, name='estudiante'),
+    url(r'^estudiante/$', views.Estudiante.as_view(), name='estudiante'),
+    url(r'^profesor/$', views.Profesor.as_view(), name='profesor'),
+    url(r'^administrador/$', views.Administrador.as_view(), name='administrador'),
 ]
