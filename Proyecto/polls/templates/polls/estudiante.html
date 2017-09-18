@@ -4,18 +4,33 @@
 
 {% if user.is_authenticated %}
 	<li>Bienvenido(a): {{ user.get_username }}</li>
-
-	 <li><a href="{% url 'logout'%}?next=/polls">Logout</a></li>   
+	<li><a href="{% url 'logout'%}?next=/polls">Logout</a></li>   
 	<li>Hola soy un estudiante</li>
 
 {% block content %}
-    <h2>Estudiantes</h2>
-    <ul>
+    <h2>Mis datos</h2>
+    <ul>      
         {% for estudiante in object_list %}
-            <li>{{ estudiante.nombre }}</li>
-        {% endfor %}
+            <li>Nombre: {{ estudiante.nombre }}</li>
+            <li>Apellido Paterno: {{ estudiante.apellidoPaterno }}</li>
+            <li>Apellido Materno: {{ estudiante.apellidoMaterno }}</li>
+            <li>Dirección: {{ estudiante.direccion }}</li>
+            <li>Corrreo Electrónico: {{ estudiante.correoElectronico }}</li>
+            <li>Rut: {{ estudiante.rut }}</li>
+         {% endfor %}        
+
     </ul>
 {% endblock %}
+
+
+
+
+<form action="/editar_datos_estudiante/" method="post">
+    <label for="nombre">Nombre </label>
+    <input id="nombre" type="text" name="name_field" value="{{ estudiante.nombre }}">
+    <input type="submit" value="OK">
+</form>
+
 
 
 {% endif %} 

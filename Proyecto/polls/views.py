@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.http import Http404
-from .models import Question, Choice, InstanciaAsignatura,User, Estudiante
+from .models import Question, Choice, InstanciaAsignatura,User, Estudiante, Asignatura
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -12,6 +12,7 @@ from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView,ListView
+from django.forms import ModelForm
 # Create your views here.
 class IndexView(LoginRequiredMixin, generic.ListView):
     template_name = 'polls/index.html'
@@ -36,10 +37,14 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
-class Estudiante(ListView):
+class ViewEstudiante(generic.ListView):
     model = Estudiante
     template_name = 'polls/estudiante.html'
-    
+    def get_queryset(self):        
+        """Obtener el nombre del usuario con sesion iniciada y devolver el estudiante con el mismo nombre"""     
+
+        return Estudiante.objects.filter(username = self.request.user.username)
+
 
 
 class Profesor(TemplateView):

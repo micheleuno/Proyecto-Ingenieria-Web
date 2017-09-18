@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.forms import ModelForm
 
 # Create your models here.
 @python_2_unicode_compatible 
@@ -27,6 +28,7 @@ class Choice(models.Model):
         return self.choice_text
         
 class Estudiante(models.Model):
+    username = models.CharField(max_length=50, unique=True)
     nombre = models.CharField(max_length=50)
     apellidoPaterno = models.CharField(max_length=50)
     apellidoMaterno = models.CharField(max_length=50)
@@ -38,7 +40,7 @@ class Estudiante(models.Model):
         return self.nombre +" " + self.apellidoPaterno +" " + self.apellidoMaterno
 
 class Carrera(models.Model):
-    nombre = models.CharField(max_length=50, unique=True)
+    nombre = models.CharField(max_length=50)
     
     def __str__(self):
         return self.nombre
@@ -87,7 +89,7 @@ class MatriculaMalla(models.Model):
     estudiante = models.ForeignKey(Estudiante)
     asignaturasAprobadas = models.IntegerField(default=0)
     
-    def __str__(self):
+    def __int__(self):
         return self.asignaturasAprobadas
 
 class InscripcionAsignatura(models.Model):
