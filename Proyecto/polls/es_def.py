@@ -13,15 +13,14 @@ class funciones_etudiante():
         es.correo = correoE
         es.save()
         
-    def get_datos_H9(rutE, carreraE, añoE, semestreE, estadoE)
-        es = get_datos_H8(rutE)
-        ia = InstanciaAsignatura.object.filter(estudiante=es)
+    def get_datos_H9(rutE, carreraE, anioE, semestreE, estadoE)
+        insc = InscripcionAsignatura.object.filter(estudiante__rut=rutE)
         if carreraE:
-            ia.filter(carrera=carreraE)
-        if añoE:
-            ia.filter(año=añoE)
+            insc.object.filter(carrera=carreraE)
+        if anioE:
+            insc.object.filter(InstanciaAsignatura__anio=anioE)
         if semestreE:
-            ia.filter(semestre=semestreE)
+            insc.object.filter(InstanciaAsignatura__semestre=semestreE)
         if estadoE:
-            ia.filter(estado=estadoE)
-        return ia
+            insc.object.filter(estadoInscripcion=estadoE)
+        return insc
