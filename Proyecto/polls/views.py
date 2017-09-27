@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.http import Http404
-from .models import Question, Choice, InstanciaAsignatura,User, Estudiante, Asignatura
+from .models import Question, Choice, InstanciaAsignatura,User, Estudiante, Asignatura, InscripcionAsignatura
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -45,6 +45,22 @@ class ViewEstudiante(generic.ListView):
         """Obtener el nombre del usuario con sesion iniciada y devolver el estudiante con el mismo nombre"""     
 
         return Estudiante.objects.filter(username = self.request.user.username)
+
+class ViewRamosEstudiante(generic.ListView):
+    model = InscripcionAsignatura
+    template_name = 'polls/ver_ramos_estudiante.html'
+ 
+    def get_queryset(self):
+        obj_estudiante = Estudiante.objects.get(username = self.request.user.username)
+        lista = InscripcionAsignatura.objects.filter(estudiante=obj_estudiante.id)
+
+
+
+
+        print(obj_estudiante.username)
+        print(lista)
+        return lista
+
 
 def editar_estudiante(request):
     estudiante2 = Estudiante.objects.get(username = request.user.username)

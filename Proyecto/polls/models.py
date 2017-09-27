@@ -101,9 +101,6 @@ class InscripcionAsignatura(models.Model):
     estadoInscripcion = models.ForeignKey(EstadoInscripcion)
     estadoFinal = models.CharField(max_length=1, choices=SELAS)
     notaFinal = models.IntegerField(default=1)
-    
-    def __str__(self):
-        return self.estudiante.nombre+" "+self.instancia.asignatura.nombre
         
 class Profile(models.Model):
     STUDENT = 1
