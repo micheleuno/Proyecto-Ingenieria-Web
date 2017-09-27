@@ -28,16 +28,14 @@ class Choice(models.Model):
         return self.choice_text
         
 class Estudiante(models.Model):
-    username = models.CharField(max_length=50, unique=True)
+    username = models.CharField(max_length=50, unique=True, null=True)
     nombre = models.CharField(max_length=50)
     apellidoPaterno = models.CharField(max_length=50)
     apellidoMaterno = models.CharField(max_length=50)
+    telefono = models.CharField(max_length=20,null = True)
     rut = models.CharField(max_length=10, unique=True)
     direccion = models.CharField(max_length=50)
     correoElectronico = models.CharField(max_length=50)
-    
-    def __str__(self):
-        return self.nombre +" " + self.apellidoPaterno +" " + self.apellidoMaterno
 
 class Carrera(models.Model):
     nombre = models.CharField(max_length=50)

@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^estudiante/$', views.ViewEstudiante.as_view(), name='estudiante'),
     url(r'^profesor/$', views.Profesor.as_view(), name='profesor'),
     url(r'^administrador/$', views.Administrador.as_view(), name='administrador'),
+    url('editar_estudiante/', views.editar_estudiante, name='editar_estudiante'),    
+	url('guardar_estudiante/', views.guardar_estudiante, name='guardar_estudiante'),
 ]

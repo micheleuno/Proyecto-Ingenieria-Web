@@ -40,10 +40,47 @@ class ResultsView(generic.DetailView):
 class ViewEstudiante(generic.ListView):
     model = Estudiante
     template_name = 'polls/estudiante.html'
+ 
     def get_queryset(self):        
         """Obtener el nombre del usuario con sesion iniciada y devolver el estudiante con el mismo nombre"""     
 
         return Estudiante.objects.filter(username = self.request.user.username)
+
+def editar_estudiante(request):
+    estudiante2 = Estudiante.objects.get(username = request.user.username)
+    context = {
+        'estudiante': estudiante2
+    }
+    return render(request, 'polls/editar_estudiante.html', context)
+
+
+def guardar_estudiante(request):
+
+    obj_estudiante = Estudiante.objects.get(username=request.user.username)
+    obj_estudiante.direccion=request.POST['direccion']
+    obj_estudiante.correoElectronico=request.POST['correo']
+    obj_estudiante.telefono=request.POST['telefono']
+    obj_estudiante.save()
+    context = {
+        'estudiante': obj_estudiante
+    }
+   
+    return render(request, 'polls/guardar_estudiante.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
