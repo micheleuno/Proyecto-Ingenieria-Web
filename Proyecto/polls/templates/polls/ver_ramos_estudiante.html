@@ -1,0 +1,26 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+{% if user.is_authenticated %}
+	
+
+{% block content %}
+   <h2>Mis Ramos Inscritos</h2>
+    <ul>      
+        {% for inscripcionasignatura in object_list %}
+            <li>Estado final: {{ inscripcionasignatura.estadoFinal }}</li>
+             <li>Estudiante: {{ inscripcionasignatura.estudiante.username }}</li>
+              <li>Asignatura: {{ inscripcionasignatura.instancia.asignatura }}</li>
+         {% endfor %}        
+
+    </ul>
+{% endblock %}
+<form action="/polls/estudiante/" method="get">         
+   
+    <input type="submit" class="btn btn-primary" value="Volver">
+</form> 
+
+
+{% endif %} 
+

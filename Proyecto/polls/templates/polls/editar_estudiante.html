@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Estudiante</title>
+
+{% load static %}
+
+
+</head>
+<body>
+<div class="container">
+    <h1>Editar Datos del Estudiante</h1>
+    <div>
+        <form action="/polls/guardar_estudiante/" method="post">
+            {% csrf_token %}
+            <div>
+                <div class="row fila-formulario">
+                    <div class="col-md-2">
+                        <label>Rut:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control" value="{{ estudiante.rut }}" disabled>
+                    </div>
+                </div>
+                <div class="row fila-formulario">
+                    <div class="col-md-2">
+                        <label>Nombre:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input name="nombre" class="form-control" value="{{ estudiante.nombre }}" disabled>
+                    </div>
+                </div>
+                <div class="row fila-formulario">
+                    <div class="col-md-2">
+                        <label>Apellido:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input name="apellido" class="form-control" value="{{ estudiante.apellidoPaterno }}" disabled>
+                    </div>
+                </div>            
+                <div class="row fila-formulario">
+                    <div class="col-md-2">
+                        <label>Direccion:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input name="direccion" class="form-control" value="{{ estudiante.direccion }}">
+                    </div>
+                </div>
+                  <div class="row fila-formulario">
+                    <div class="col-md-2">
+                        <label>Teléfono:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input name="telefono" class="form-control" value="{{ estudiante.telefono }}">
+                    </div>
+                </div>
+                <div class="row fila-formulario">
+                    <div class="col-md-2">
+                        <label>Correo:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input name="correo" class="form-control" value="{{ estudiante.correoElectronico }}">
+                    </div>
+                </div>      
+            </div>
+            <input type="hidden" name="username" value="{{ estudiante.username }}">
+            <input type="submit" class="btn btn-primary" value="Guardar">
+        </form>
+    </div>
+</div>
+
+<body>
+ 
+</html><!-- Etiqueta de cierre de HTML -->
+    
+
