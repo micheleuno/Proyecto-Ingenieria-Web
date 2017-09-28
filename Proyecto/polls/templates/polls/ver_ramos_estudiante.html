@@ -57,15 +57,24 @@
        
 
          {% for inscripcionasignatura in object_list %}
-            <li>Estado final: {{ inscripcionasignatura.estadoFinal }}</li>
-             <li>Estudiante: {{ inscripcionasignatura.estudiante.username }}</li>
-              <li>Asignatura: {{ inscripcionasignatura.instancia.asignatura }}</li>
+             <li>Asignatura: {{ inscripcionasignatura.instancia.asignatura }}</li>
+             {% if inscripcionasignatura.estadoFinal == "A" %}
+                <li>Estado: Aprobado </li>
+             {% endif %} 
+             
+             {% if inscripcionasignatura.estadoFinal == "P" %}
+                <li>Estado: Pendiente </li>
+             {% endif %} 
+
+             {% if inscripcionasignatura.estadoFinal == "R" %}
+                <li>Estado: Reprobado </li>
+             {% endif %} 
+
          {% endfor %}       
 
           {% for obj in lista_inscripciones %}
-            <li>Estado final: {{ obj.nombre }}</li>
-             <li>Estudiante: {{ inscripcionasignatura.estudiante.username }}</li>
-              <li>Asignatura: {{ inscripcionasignatura.instancia.asignatura }}</li>
+            <li>Asignatura: {{ obj.nombre }}</li>
+             <li>Estado: {{ obj.estado }}</li>
          {% endfor %}       
 
     </ul>

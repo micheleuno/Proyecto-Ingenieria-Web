@@ -73,12 +73,12 @@ def filtrar_ramos_estudiante(request):
 
     obj_estudiante = Estudiante.objects.get(username = request.user.username)
     lista = InscripcionAsignatura.objects.filter(estudiante=obj_estudiante.id)
-    print(lista)
     lista_inscripciones = []
     var_carrera = request.POST['carrera']
     var_anno = request.POST['anno']
     var_semestre = request.POST['semestre'] 
     var_estado = request.POST['estado'] 
+    
     for obj in lista:
         ins_asig = InstanciaAsignatura.objects.get(id=obj.instancia.id)
         asignatura = Asignatura.objects.get(id=ins_asig.asignatura.id)
@@ -92,13 +92,18 @@ def filtrar_ramos_estudiante(request):
         inscripcion.anno = ins_asig.anio
         inscripcion.semestre = ins_asig.semestre
         inscripcion.estado = obj.estadoFinal
+        if(obj.estadoFinal=='A'):
+        	inscripcion.estado='Aprobado'
+        if(obj.estadoFinal=='P'):
+        	inscripcion.estado='Pendiente'
+        if(obj.estadoFinal=='R'):
+        	inscripcion.estado='Reprobado'
+
+       
         #filtro
-        if((inscripcion.anno == var_anno or var_anno == '') and (inscripcion.anno == var_carrera or var_carrera == '') and (inscripcion.semestre == var_semestre or var_semestre == '') and (inscripcion.estado == var_estado or var_estado == '')):
+        if((inscripcion.anno == var_anno or var_anno == '') and (inscripcion.anno == var_carrera or var_carrera == '') and (inscripcion.semestre == var_semestre or var_semestre == '') and ((inscripcion.estado).lower() == (var_estado).lower() or var_estado == '')):
             lista_inscripciones.append(inscripcion)
-            print("año busqueda"+ var_anno)
-            print("Carrera: "+inscripcion.nombre)
-            print("Año: "+inscripcion.anno)
-    
+                
     context = {
         'usuario': obj_estudiante,
         'lista_inscripciones': lista_inscripciones,
