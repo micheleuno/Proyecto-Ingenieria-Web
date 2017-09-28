@@ -5,14 +5,68 @@
 {% if user.is_authenticated %}
 	
 
+    <div>
+        <form action="/polls/filtrar_ramos_estudiante/" method="post">
+            {% csrf_token %}        
+            <h1>Inscripciones</h1>
+            <h2>Filtros:</h2>
+            <div class="row fila-formulario">
+                <div class="col-md-2">
+                    <label>Carrera:</label>
+                </div>
+                <div class="col-md-4">
+                    <input class="form-control" value="" name ="carrera">
+                </div>
+                <div class="col-md-2">
+                    <label>Año:</label>
+                </div>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ anno }}" name ="anno">
+                </div>
+            </div>
+            <div class="row fila-formulario">
+                <div class="col-md-2">
+                    <label>Semestre:</label>
+                </div>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ semestre }}" name ="semestre">
+                </div>
+                <div class="col-md-2">
+                    <label>Estado:</label>
+                </div>
+                <div class="col-md-4">
+                    <input class="form-control" value="{{ estado }}" name ="estado">
+                </div>
+            </div>
+            <input type="hidden" name ="username" value="{{ usuario.username }}">
+            <input type="submit" class="btn btn-primary" value="Buscar">
+        </form> 
+    </div>
+
+
+
+
+
+
+
+
+
 {% block content %}
    <h2>Mis Ramos Inscritos</h2>
     <ul>      
-        {% for inscripcionasignatura in object_list %}
+       
+
+         {% for inscripcionasignatura in object_list %}
             <li>Estado final: {{ inscripcionasignatura.estadoFinal }}</li>
              <li>Estudiante: {{ inscripcionasignatura.estudiante.username }}</li>
               <li>Asignatura: {{ inscripcionasignatura.instancia.asignatura }}</li>
-         {% endfor %}        
+         {% endfor %}       
+
+          {% for obj in lista_inscripciones %}
+            <li>Estado final: {{ obj.nombre }}</li>
+             <li>Estudiante: {{ inscripcionasignatura.estudiante.username }}</li>
+              <li>Asignatura: {{ inscripcionasignatura.instancia.asignatura }}</li>
+         {% endfor %}       
 
     </ul>
 {% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.http import Http404
-from .models import Question, Choice, InstanciaAsignatura,User, Estudiante, Asignatura, InscripcionAsignatura
+from .models import Question, Choice, InstanciaAsignatura,User, Estudiante, Asignatura, InscripcionAsignatura, MatriculaMalla, Carrera, MallaCurricular
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -51,16 +51,61 @@ class ViewRamosEstudiante(generic.ListView):
     template_name = 'polls/ver_ramos_estudiante.html'
  
     def get_queryset(self):
+
+
         obj_estudiante = Estudiante.objects.get(username = self.request.user.username)
         lista = InscripcionAsignatura.objects.filter(estudiante=obj_estudiante.id)
-
-
-
-
         print(obj_estudiante.username)
         print(lista)
         return lista
 
+class Inscripciones:
+    def __init__(self):
+        self.carrera = ''
+        self.clave = ''
+        self.nombre = ''
+        self.anno = ''
+        self.semestre = ''
+        self.estado = ''
+
+
+def filtrar_ramos_estudiante(request):
+
+    obj_estudiante = Estudiante.objects.get(username = request.user.username)
+    lista = InscripcionAsignatura.objects.filter(estudiante=obj_estudiante.id)
+    print(lista)
+    for obj in lista:
+        ins_asig = InstanciaAsignatura.objects.get(id=obj.instancia.id)
+        asignatura = Asignatura.objects.get(id=ins_asig.asignatura.id)
+        malla= MatriculaMalla.objects.get(id=asignatura.mallaCurricular.id)
+        """carrera= Carrera.objects.get(MallaCurricular.carrera)"""
+        lista_inscripciones = []
+        var_carrera = ''
+        var_anno = '' 
+        var_semestre = '' 
+        var_estado = ''     
+        inscripcion = Inscripciones()
+        
+        """ inscripcion.carrera = carrera.nombre   """     
+        inscripcion.nombre = asignatura.nombre
+        inscripcion.anno = ins_asig.anio
+        inscripcion.semestre = ins_asig.semestre
+        inscripcion.estado = obj.estadoFinal
+        #filtro
+        if((inscripcion.anno == var_anno or var_anno == '') and (inscripcion.anno == var_carrera or var_carrera == '') and (inscripcion.semestre == var_semestre or var_semestre == '') and (inscripcion.estado == var_estado or var_estado == '')):
+            lista_inscripciones.append(inscripcion)
+        print("Carrera: "+inscripcion.nombre)
+    
+    context = {
+        'usuario': obj_estudiante,
+        'lista_inscripciones': lista_inscripciones,
+        'carrera' : var_carrera,
+        'anno' : var_anno,
+        'semestre' : var_semestre,
+        'estado' : var_estado
+
+    }
+    return render(request, 'polls/ver_ramos_estudiante.html', context)
 
 def editar_estudiante(request):
     estudiante2 = Estudiante.objects.get(username = request.user.username)

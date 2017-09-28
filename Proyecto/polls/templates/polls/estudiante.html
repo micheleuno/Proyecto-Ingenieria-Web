@@ -4,9 +4,8 @@
 
 {% if user.is_authenticated %}
 	<li>Bienvenido(a): {{ user.get_username }}</li>
-	<li><a href="{% url 'logout'%}?next=/polls">Logout</a></li>   
-	<li>Hola soy un estudiante</li>
-
+	<li><a href="{% url 'logout'%}?next=/polls">Desconectarme</a></li>   
+	
 {% block content %}
     <h2>Mis datos</h2>
     <ul>      
@@ -27,7 +26,7 @@
 <form action="/polls/editar_estudiante/" method="post">
             {% csrf_token %}
             <input type="hidden" name ="username" value="{{ user.get_username }}">
-            <input type="submit" class="btn btn-primary" value="Editar">
+            <input type="submit" class="btn btn-primary" value="Editar Mis Datos">
         </form> 
 
 
