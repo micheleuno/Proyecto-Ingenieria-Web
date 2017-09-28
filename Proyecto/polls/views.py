@@ -74,16 +74,17 @@ def filtrar_ramos_estudiante(request):
     obj_estudiante = Estudiante.objects.get(username = request.user.username)
     lista = InscripcionAsignatura.objects.filter(estudiante=obj_estudiante.id)
     print(lista)
+    lista_inscripciones = []
+    var_carrera = request.POST['carrera']
+    var_anno = request.POST['anno']
+    var_semestre = request.POST['semestre'] 
+    var_estado = request.POST['estado'] 
     for obj in lista:
         ins_asig = InstanciaAsignatura.objects.get(id=obj.instancia.id)
         asignatura = Asignatura.objects.get(id=ins_asig.asignatura.id)
         malla= MatriculaMalla.objects.get(id=asignatura.mallaCurricular.id)
         """carrera= Carrera.objects.get(MallaCurricular.carrera)"""
-        lista_inscripciones = []
-        var_carrera = ''
-        var_anno = '' 
-        var_semestre = '' 
-        var_estado = ''     
+           
         inscripcion = Inscripciones()
         
         """ inscripcion.carrera = carrera.nombre   """     
@@ -94,7 +95,9 @@ def filtrar_ramos_estudiante(request):
         #filtro
         if((inscripcion.anno == var_anno or var_anno == '') and (inscripcion.anno == var_carrera or var_carrera == '') and (inscripcion.semestre == var_semestre or var_semestre == '') and (inscripcion.estado == var_estado or var_estado == '')):
             lista_inscripciones.append(inscripcion)
-        print("Carrera: "+inscripcion.nombre)
+            print("año busqueda"+ var_anno)
+            print("Carrera: "+inscripcion.nombre)
+            print("Año: "+inscripcion.anno)
     
     context = {
         'usuario': obj_estudiante,
