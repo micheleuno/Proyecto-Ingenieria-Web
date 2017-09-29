@@ -1,5 +1,9 @@
 li a {
-    color: black;
+    color: yellow;
+     list-style-type: none;
+}
+ul {
+  list-style-type: none;
 }
 body {
    

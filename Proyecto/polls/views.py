@@ -78,20 +78,23 @@ def filtrar_ramos_estudiante(request):
     var_anno = request.POST['anno']
     var_semestre = request.POST['semestre'] 
     var_estado = request.POST['estado'] 
-    
+    var_asignatura = request.POST['asignatura'] 
     for obj in lista:
         ins_asig = InstanciaAsignatura.objects.get(id=obj.instancia.id)
         asignatura = Asignatura.objects.get(id=ins_asig.asignatura.id)
         malla= MatriculaMalla.objects.get(id=asignatura.mallaCurricular.id)
-        """carrera= Carrera.objects.get(MallaCurricular.carrera)"""
+        """ asignatura=MallaCurricular.objects.get(id=malla.mallaCurricular.id)"""
+        
+        """ carrera= Carrera.objects.get(id=mallac.carrera)"""
            
         inscripcion = Inscripciones()
         
-        """ inscripcion.carrera = carrera.nombre   """     
+        """inscripcion.carrera = carrera """  
         inscripcion.nombre = asignatura.nombre
         inscripcion.anno = ins_asig.anio
         inscripcion.semestre = ins_asig.semestre
         inscripcion.estado = obj.estadoFinal
+
         if(obj.estadoFinal=='A'):
         	inscripcion.estado='Aprobado'
         if(obj.estadoFinal=='P'):
@@ -101,16 +104,23 @@ def filtrar_ramos_estudiante(request):
 
        
         #filtro
-        if((inscripcion.anno == var_anno or var_anno == '') and (inscripcion.anno == var_carrera or var_carrera == '') and (inscripcion.semestre == var_semestre or var_semestre == '') and ((inscripcion.estado).lower() == (var_estado).lower() or var_estado == '')):
+        if((inscripcion.anno == var_anno or var_anno == '') and ((inscripcion.nombre).lower() == (var_asignatura).lower() or var_asignatura == '') and (inscripcion.semestre == var_semestre or var_semestre == '') and ((inscripcion.estado).lower() == (var_estado).lower() or var_estado == '')):
             lista_inscripciones.append(inscripcion)
-                
+    if(len(lista_inscripciones)==0):  
+        inscripcion.nombre = "No se encontraron resultados"
+        inscripcion.anno = ""
+        inscripcion.semestre = ""
+        inscripcion.estado = ""
+        lista_inscripciones.append(inscripcion)
+
     context = {
         'usuario': obj_estudiante,
         'lista_inscripciones': lista_inscripciones,
         'carrera' : var_carrera,
         'anno' : var_anno,
         'semestre' : var_semestre,
-        'estado' : var_estado
+        'estado' : var_estado,
+        'asignatura' : var_asignatura
 
     }
     return render(request, 'polls/ver_ramos_estudiante.html', context)

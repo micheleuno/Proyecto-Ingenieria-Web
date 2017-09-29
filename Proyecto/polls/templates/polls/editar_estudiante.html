@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Estudiante</title>
-
+{% extends 'base2.html' %}
 {% load static %}
+{% if user.is_authenticated %}
+{% block branding %}    
+        <p>Bienvenido(a): {{ user.get_username }}</p>
+        <p><a href="{% url 'logout'%}?next=/polls">Desconectarme</a></p>    
+{% endblock %}
 
-
+{% block content %}
 </head>
 <body>
 <div class="container">
@@ -14,51 +15,51 @@
         <form action="/polls/guardar_estudiante/" method="post">
             {% csrf_token %}
             <div>
-                <div class="row fila-formulario">
-                    <div class="col-md-2">
+                <div>
+                    <div>
                         <label>Rut:</label>
                     </div>
-                    <div class="col-md-4">
+                    <div>
                         <input class="form-control" value="{{ estudiante.rut }}" disabled>
                     </div>
                 </div>
-                <div class="row fila-formulario">
-                    <div class="col-md-2">
+                <div>
+                    <div>
                         <label>Nombre:</label>
                     </div>
-                    <div class="col-md-4">
+                    <div>
                         <input name="nombre" class="form-control" value="{{ estudiante.nombre }}" disabled>
                     </div>
                 </div>
-                <div class="row fila-formulario">
-                    <div class="col-md-2">
+                <div>
+                    <div>
                         <label>Apellido:</label>
                     </div>
-                    <div class="col-md-4">
+                    <div>
                         <input name="apellido" class="form-control" value="{{ estudiante.apellidoPaterno }}" disabled>
                     </div>
                 </div>            
-                <div class="row fila-formulario">
-                    <div class="col-md-2">
+                <div>
+                    <div>
                         <label>Direccion:</label>
                     </div>
-                    <div class="col-md-4">
+                    <div>
                         <input name="direccion" class="form-control" value="{{ estudiante.direccion }}">
                     </div>
                 </div>
-                  <div class="row fila-formulario">
-                    <div class="col-md-2">
+                  <div>
+                    <div>
                         <label>Teléfono:</label>
                     </div>
-                    <div class="col-md-4">
+                    <div>
                         <input name="telefono" class="form-control" value="{{ estudiante.telefono }}">
                     </div>
                 </div>
-                <div class="row fila-formulario">
-                    <div class="col-md-2">
+                <div>
+                    <div>
                         <label>Correo:</label>
                     </div>
-                    <div class="col-md-4">
+                    <div>
                         <input name="correo" class="form-control" value="{{ estudiante.correoElectronico }}">
                     </div>
                 </div>      
@@ -70,7 +71,7 @@
 </div>
 
 <body>
- 
-</html><!-- Etiqueta de cierre de HTML -->
-    
+ {% endblock %}
+
+{% endif %} 
 

@@ -1,13 +1,14 @@
+{% extends 'base2.html' %}
+
 {% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
-
 {% if user.is_authenticated %}
-	<li>Bienvenido(a): {{ user.get_username }}</li>
-	<li><a href="{% url 'logout'%}?next=/polls">Desconectarme</a></li>   
-	
+{% block branding %}	
+	    <p>Bienvenido(a): {{ user.get_username }}</p>
+	    <p><a href="{% url 'logout'%}?next=/polls">Desconectarme</a></p>	
+{% endblock %}
+
 {% block content %}
-    <h2>Mis datos</h2>
+     <h1>Editar Datos del Estudiante</h1>
     <ul>      
         {% for estudiante in object_list %}
             <li>Nombre: {{ estudiante.nombre }}</li>
@@ -20,10 +21,8 @@
          {% endfor %}        
 
     </ul>
-{% endblock %}
 
-
-<form action="/polls/editar_estudiante/" method="post">
+    <form action="/polls/editar_estudiante/" method="post">
             {% csrf_token %}
             <input type="hidden" name ="username" value="{{ user.get_username }}">
             <input type="submit" class="btn btn-primary" value="Editar Mis Datos">
@@ -33,6 +32,10 @@
 <form action="/polls/ver_ramos_estudiante/" method="get">         
     <input type="submit" class="btn btn-primary" value="Ver ramos inscritos">
 </form> 
+{% endblock %}
+
+
+
 
 {% endif %} 
 
