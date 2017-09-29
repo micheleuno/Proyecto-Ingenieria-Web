@@ -16,14 +16,13 @@
         <form action="/nave/filtrar_ramos_estudiante/" method="post">
             {% csrf_token %}    
              <table summary="no_orderDate">   
-            <tr><th>Nombre Asignatura</th><th>Estado</th><th>Semestre</th><th>Año</th><th></th>
+            <tr><th>Nombre Asignatura</th><th>Estado</th><th>Semestre</th><th>Año</th><th>Carrera</th>
               <tr>
-                 <td> <input class="form-control" value="{{ asignatura }}" name ="asignatura"> </td>
-                 <td> <input class="form-control" value="{{ estado }}" name ="estado"> </td>              
+                <td> <input class="form-control" value="{{ asignatura }}" name ="asignatura"> </td>
+                <td> <input class="form-control" value="{{ estado }}" name ="estado"> </td>              
                 <td>  <input class="form-control" value="{{ semestre }}" name ="semestre"></td>
-                   <td> <input class="form-control" value="{{ anno }}" name ="anno"></td>
-                 
-               <!-- <td> <input class="form-control" value="" name ="carrera"></td>-->  
+                <td> <input class="form-control" value="{{ anno }}" name ="anno"></td>                 
+                <td> <input class="form-control" value="{{ carrera }}" name ="carrera"></td>  
             </tr>     
                 </tr>   
             </table>    
@@ -40,26 +39,8 @@
    <h2>Mis Ramos Inscritos</h2>
     <ul>
             <table summary="no_orderDate">
-            <tr><th>Asignatura</th><th>Estado</th><th>Semestre</th><th>Año</th><th></th>
+            <tr><th>Asignatura</th><th>Estado</th><th>Semestre</th><th>Año</th><th>Carrera</th>
 
-            {% for inscripcionasignatura in object_list %}              
-                    <tr><td>{{ inscripcionasignatura.instancia.asignatura }}</td>
-
-                        {% if inscripcionasignatura.estadoFinal == "A" %}
-                            <td>Aprobado </td>
-                         {% endif %} 
-             
-                         {% if inscripcionasignatura.estadoFinal == "P" %}
-                            <td>Pendiente </td>
-                         {% endif %} 
-
-                         {% if inscripcionasignatura.estadoFinal == "R" %}
-                            <td>Reprobado </td>
-                         {% endif %}       
-                          <td> {{inscripcionasignatura.instancia.semestre}} </td>  <td> {{inscripcionasignatura.instancia.anio}} </td>  <td> </td>                           
-                    </tr> 
-
-            {% endfor %}
 
             {% for obj in lista_inscripciones%}              
                     <tr><td>{{ obj.nombre }}</td><td>{{ obj.estado }}</td><td>{{ obj.semestre }}</td><td>{{ obj.anno }}</td><td>{{ obj.carrera }}</td></tr>               
