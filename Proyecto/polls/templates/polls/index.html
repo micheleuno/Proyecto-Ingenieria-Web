@@ -4,15 +4,15 @@
 {% if user.is_authenticated %}
 
 	{% if user.profile.role == 1%} <!--Estudiante-->		
-		 <meta http-equiv="REFRESH" content="0;url=/polls/estudiante">		
+		 <meta http-equiv="REFRESH" content="0;url=/nave/estudiante">		
 	{% endif %} 
 
 	{% if user.profile.role == 2%} <!--Profesor-->
-	 <meta http-equiv="REFRESH" content="0;url=/polls/profesor">
+	 <meta http-equiv="REFRESH" content="0;url=/nave/profesor">
 	{% endif %} 
 
 	{% if user.profile.role == 3%}  <!--Administrador-->
-		 <meta http-equiv="REFRESH" content="0;url=/polls/administrador">
+		 <meta http-equiv="REFRESH" content="0;url=/nave/administrador">
 	{% endif %}
 	
 {% endif %} 

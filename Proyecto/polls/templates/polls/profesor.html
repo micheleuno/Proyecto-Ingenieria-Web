@@ -6,13 +6,13 @@
 
 	<li>Bienvenido(a): {{ user.get_username }}</li>
 
-	  <li><a href="{% url 'logout'%}?next=/polls">Desconectarme</a></li>   
+	  <li><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></li>   
 
 
 	<li>Hola soy un profesor</li>
 
 	{% endif %} 
 <li>No tiene permiso para ver este sitio</li>
-<form action="/polls/" method="get">         
+<form action="/nave/" method="get">         
     <input type="submit" class="btn btn-primary" value="Volver">
 </form> 

@@ -5,7 +5,7 @@
 {% if user.profile.role == 1%} <!--Estudiante-->		
 {% block branding %}	
 	    <p>Bienvenido(a): {{ user.get_username }}</p>
-	    <p><a href="{% url 'logout'%}?next=/polls">Desconectarme</a></p>	
+	    <p><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></p>	
 {% endblock %}
 
 {% block content %}
@@ -23,14 +23,14 @@
 
     </ul>
 
-    <form action="/polls/editar_estudiante/" method="post">
+    <form action="/nave/editar_estudiante/" method="post">
             {% csrf_token %}
             <input type="hidden" name ="username" value="{{ user.get_username }}">
             <input type="submit" class="btn btn-primary" value="Editar Mis Datos">
         </form> 
 
 
-<form action="/polls/ver_ramos_estudiante/" method="get">         
+<form action="/nave/ver_ramos_estudiante/" method="get">         
     <input type="submit" class="btn btn-primary" value="Ver ramos inscritos">
 </form> 
 {% endblock %}
@@ -40,6 +40,6 @@
 {% endif %} 
 
 <li>No tiene permiso para ver este sitio</li>
-<form action="/polls/" method="get">         
+<form action="/nave/" method="get">         
     <input type="submit" class="btn btn-primary" value="Volver">
 </form> 

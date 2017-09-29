@@ -1,10 +1,10 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'nave/style.css' %}" />
 
 {% if user.is_authenticated %}
 	<li>Bienvenido(a): {{ user.get_username }}</li>
-	 <li><a href="{% url 'logout'%}?next=/polls">Logout</a></li>   
+	 <li><a href="{% url 'logout'%}?next=/nave">Logout</a></li>   
 	  <li><a href="/admin/"> Ir a sitio administrador</a></li>
 	<li>Hola soy un administrador</li>
 

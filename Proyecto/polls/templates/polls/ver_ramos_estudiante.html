@@ -3,17 +3,17 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
-{% if user.profile.role == 1%} <!--Estudiante-->
+{% if user.autenticated and user.profile.role == 1%} <!--Estudiante-->
 {% block branding %}    
         <p>Bienvenido(a): {{ user.get_username }}</p>
-        <p><a href="{% url 'logout'%}?next=/polls">Desconectarme</a></p>    
+        <p><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></p>    
 {% endblock %}
 
 {% block content %}
   <div>
      <h1>Ramos Inscritos</h1>
             <h2>Filtros:</h2>
-        <form action="/polls/filtrar_ramos_estudiante/" method="post">
+        <form action="/nave/filtrar_ramos_estudiante/" method="post">
             {% csrf_token %}    
              <table summary="no_orderDate">   
             <tr><th>Nombre Asignatura</th><th>Estado</th><th>Semestre</th><th>Año</th><th></th>
@@ -67,7 +67,7 @@
             </table>     
 
     </ul>
-    <form action="/polls/estudiante/" method="get">         
+    <form action="/nave/estudiante/" method="get">         
    
     <input type="submit" class="btn btn-primary" value="Volver">
 </form> 
@@ -78,6 +78,6 @@
 {% endif %} 
 
 <li>No tiene permiso para ver este sitio</li>
-<form action="/polls/" method="get">         
+<form action="/nave/" method="get">         
     <input type="submit" class="btn btn-primary" value="Volver">
 </form> 
