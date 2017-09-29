@@ -1,11 +1,24 @@
+{% extends 'base2.html' %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'nave/style.css' %}" />
 
-{% if user.is_authenticated %}
-	<li>Bienvenido(a): {{ user.get_username }}</li>
-	 <li><a href="{% url 'logout'%}?next=/nave">Logout</a></li>   
-	  <li><a href="/admin/"> Ir a sitio administrador</a></li>
-	<li>Hola soy un administrador</li>
+{% if user.autenticated and user.profile.role == 3 %} <!--Administrador-->
+	
+	 
+	
 
+{% block branding %}    
+        <p>Bienvenido(a): {{ user.get_username }}</p>
+        <p><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></p>    
+{% endblock %}
+
+{% block content %}
+ <li><a href="/admin/"> Ir a sitio administrador</a></li>
+{% endblock %}
+
+    {% else %}
+<li>No tiene permiso para ver este sitio</li>
+<form action="/nave/" method="get">         
+    <input type="submit" class="btn btn-primary" value="Volver">
+</form> 
 	{% endif %} 

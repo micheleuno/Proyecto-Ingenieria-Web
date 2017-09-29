@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-
+admin.site.site_header = 'Administración Navegadorcito'
 urlpatterns = [
     url(r'^nave/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),

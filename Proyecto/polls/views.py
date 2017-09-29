@@ -28,15 +28,6 @@ class ViewEstudiante(LoginRequiredMixin, generic.ListView):
 
         return Estudiante.objects.filter(username = self.request.user.username)
 
-class ViewRamosEstudiante(LoginRequiredMixin, generic.ListView):
-    model = InscripcionAsignatura
-    template_name = 'polls/ver_ramos_estudiante.html'
- 
-    def get_queryset(self):
-        obj_estudiante = Estudiante.objects.get(username = self.request.user.username)
-        lista = InscripcionAsignatura.objects.filter(estudiante=obj_estudiante.id)
-        return lista
-
 class Inscripciones:
     def __init__(self):
         self.carrera = ''
@@ -214,7 +205,7 @@ def filtrar_alumnos_profesor(request):
 	if 'anno' in request.POST:
 		var_anno = request.POST['anno']
 	else:
-		var_anno = "2017"
+		var_anno = ""
 
 	if 'semestre' in request.POST:
 		var_semestre = request.POST['semestre']
@@ -284,8 +275,6 @@ def filtrar_alumnos_profesor(request):
         'carrera' : var_carrera
     }
 	return render(request, 'polls/ver_alumnos_profesor.html', context)
-
-
 
 class Administrador(LoginRequiredMixin,TemplateView):
 	template_name = 'polls/administrador.html'
