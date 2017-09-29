@@ -74,10 +74,12 @@
 
 {% endblock %}
 
-
-{% endif %} 
-
+    {% else %}
 <li>No tiene permiso para ver este sitio</li>
 <form action="/nave/" method="get">         
     <input type="submit" class="btn btn-primary" value="Volver">
 </form> 
+
+{% endif %} 
+
+

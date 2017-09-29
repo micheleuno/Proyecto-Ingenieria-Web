@@ -3,43 +3,39 @@
 {% load static %}
 
 {% if user.profile.role == 1%} <!--Estudiante-->		
-{% block branding %}	
-	    <p>Bienvenido(a): {{ user.get_username }}</p>
-	    <p><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></p>	
-{% endblock %}
+    {% block branding %}	
+    	    <p>Bienvenido(a): {{ user.get_username }}</p>
+    	    <p><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></p>	
+    {% endblock %}
 
-{% block content %}
-     <h1>Editar Datos del Estudiante</h1>
-    <ul>      
-        {% for estudiante in object_list %}
-            <li>Nombre: {{ estudiante.nombre }}</li>
-            <li>Apellido Paterno: {{ estudiante.apellidoPaterno }}</li>
-            <li>Apellido Materno: {{ estudiante.apellidoMaterno }}</li>
-            <li>Dirección: {{ estudiante.direccion }}</li>
-            <li>Corrreo Electrónico: {{ estudiante.correoElectronico }}</li>
-            <li>Teléfono: {{ estudiante.telefono }}</li>
-            <li>Rut: {{ estudiante.rut }}</li>
-         {% endfor %}        
+    {% block content %}
+        <h1>Mis datos:</h1>
+        <ul>      
+            {% for estudiante in object_list %}
+                <li>Nombre: {{ estudiante.nombre }}</li>
+                <li>Apellido Paterno: {{ estudiante.apellidoPaterno }}</li>
+                <li>Apellido Materno: {{ estudiante.apellidoMaterno }}</li>
+                <li>Dirección: {{ estudiante.direccion }}</li>
+                <li>Corrreo Electrónico: {{ estudiante.correoElectronico }}</li>
+                <li>Teléfono: {{ estudiante.telefono }}</li>
+                <li>Rut: {{ estudiante.rut }}</li>
+             {% endfor %} 
+        </ul>
 
-    </ul>
-
-    <form action="/nave/editar_estudiante/" method="post">
+        <form action="/nave/editar_estudiante/" method="post">
             {% csrf_token %}
             <input type="hidden" name ="username" value="{{ user.get_username }}">
             <input type="submit" class="btn btn-primary" value="Editar Mis Datos">
         </form> 
+        <form action="/nave/ver_ramos_estudiante/" method="get">         
+            <input type="submit" class="btn btn-primary" value="Ver ramos inscritos">
+        </form> 
+    {% endblock %}
 
-
-<form action="/nave/ver_ramos_estudiante/" method="get">         
-    <input type="submit" class="btn btn-primary" value="Ver ramos inscritos">
-</form> 
-{% endblock %}
-
-
-
+    {% else %}
+        <li>No tiene permiso para ver este sitio</li>
+        <form action="/nave/" method="get">         
+            <input type="submit" class="btn btn-primary" value="Volver">
+        </form> 
 {% endif %} 
 
-<li>No tiene permiso para ver este sitio</li>
-<form action="/nave/" method="get">         
-    <input type="submit" class="btn btn-primary" value="Volver">
-</form> 

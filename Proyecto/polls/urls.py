@@ -12,4 +12,5 @@ urlpatterns = [
 	url('guardar_estudiante/', views.guardar_estudiante, name='guardar_estudiante'),
 	url('ver_ramos_estudiante/', views.ViewRamosEstudiante.as_view(), name='ver_ramos_estudiante'),
 	url('filtrar_ramos_estudiante/', views.filtrar_ramos_estudiante, name='filtrar_ramos_estudiante'),
+	url('filtrar_ramos_profesor/', views.filtrar_ramos_profesor, name='filtrar_ramos_profesor'),
 ]

@@ -48,7 +48,6 @@ class Inscripciones:
 
 
 def filtrar_ramos_estudiante(request):
-
     obj_estudiante = Estudiante.objects.get(username = request.user.username)
     lista = InscripcionAsignatura.objects.filter(estudiante=obj_estudiante.id)
     lista_inscripciones = []
@@ -131,6 +130,63 @@ def guardar_estudiante(request):
 class Profesor(LoginRequiredMixin,TemplateView):
 	template_name = 'polls/profesor.html'
 
+
+def filtrar_ramos_profesor(request):
+	obj_instancia_asignatura = InstanciaAsignatura.objects.filter(profesor = request.user.first_name+" "+request.user.last_name)
+	lista_asignaturas = []
+
+
+	if 'carrera' in request.POST:
+		var_carrera = request.POST['carrera']
+	else:
+		var_carrera = ""
+
+	if 'anno' in request.POST:
+		var_anno = request.POST['anno']
+	else:
+		var_anno = ""
+
+	if 'semestre' in request.POST:
+		var_semestre = request.POST['semestre']
+	else:
+		var_semestre = ""
+	if 'carrera' in request.POST:
+
+		var_asignatura = request.POST['asignatura']
+	else:
+		var_asignatura = ""	
+
+	for obj in obj_instancia_asignatura:
+		inscripcion = Inscripciones()
+		obj_asignatura = Asignatura.objects.get(id=obj.asignatura.id)
+		obj_malla = MallaCurricular.objects.get(id=obj_asignatura.mallaCurricular.id)
+		obj_carrera = Carrera.objects.get(id=obj_malla.carrera.id)
+		inscripcion.nombre = obj_asignatura.nombre
+		inscripcion.anno = obj.anio
+		inscripcion.semestre = obj.semestre
+		inscripcion.carrera = obj_carrera.nombre
+		if((inscripcion.anno == var_anno or var_anno == '') and ((inscripcion.nombre).lower() == (var_asignatura).lower() or var_asignatura == '') and (inscripcion.semestre == var_semestre or var_semestre == '') and ((inscripcion.carrera).lower() == (var_carrera).lower() or var_carrera == '')):
+			lista_asignaturas.append(inscripcion)
+	if(len(lista_asignaturas)==0):
+		inscripcion.nombre = "No se encontraron resultados"
+		inscripcion.anno = ""
+		inscripcion.semestre = ""
+		inscripcion.carrera = ""
+		lista_asignaturas.append(inscripcion)	
+	context = {
+       
+        'lista_inscripciones': lista_asignaturas,
+        'anno' : var_anno,
+        'semestre' : var_semestre,
+        'nombre' : var_asignatura,
+        'carrera' : var_carrera
+    }
+
+	return render(request, 'polls/ver_ramos_profesor.html', context)
+
+
+
+
+
 class Administrador(LoginRequiredMixin,TemplateView):
 	template_name = 'polls/administrador.html'
-

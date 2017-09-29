@@ -2,80 +2,82 @@
 {% load static %}
 
 {% if user.profile.role == 1%} <!--Estudiante-->      
-{% block branding %}    
-        <p>Bienvenido(a): {{ user.get_username }}</p>
-        <p><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></p>    
-{% endblock %}
+    {% block branding %}    
+            <p>Bienvenido(a): {{ user.get_username }}</p>
+            <p><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></p>    
+    {% endblock %}
 
-{% block content %}
-</head>
-<body>
-<div class="container">
-    <h1>Editar Datos del Estudiante</h1>
-    <div>
-        <form action="/nave/guardar_estudiante/" method="post">
-            {% csrf_token %}
-            <div>
+    {% block content %}
+    </head>
+    <body>
+    <div class="container">
+        <h1>Editar Datos del Estudiante</h1>
+        <div>
+            <form action="/nave/guardar_estudiante/" method="post">
+                {% csrf_token %}
                 <div>
                     <div>
-                        <label>Rut:</label>
+                        <div>
+                            <label>Rut:</label>
+                        </div>
+                        <div>
+                            <input class="form-control" value="{{ estudiante.rut }}" disabled>
+                        </div>
                     </div>
                     <div>
-                        <input class="form-control" value="{{ estudiante.rut }}" disabled>
+                        <div>
+                            <label>Nombre:</label>
+                        </div>
+                        <div>
+                            <input name="nombre" class="form-control" value="{{ estudiante.nombre }}" disabled>
+                        </div>
                     </div>
+                    <div>
+                        <div>
+                            <label>Apellido:</label>
+                        </div>
+                        <div>
+                            <input name="apellido" class="form-control" value="{{ estudiante.apellidoPaterno }}" disabled>
+                        </div>
+                    </div>            
+                    <div>
+                        <div>
+                            <label>Direccion:</label>
+                        </div>
+                        <div>
+                            <input name="direccion" class="form-control" value="{{ estudiante.direccion }}">
+                        </div>
+                    </div>
+                      <div>
+                        <div>
+                            <label>Teléfono:</label>
+                        </div>
+                        <div>
+                            <input name="telefono" class="form-control" value="{{ estudiante.telefono }}">
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label>Correo:</label>
+                        </div>
+                        <div>
+                            <input name="correo" class="form-control" value="{{ estudiante.correoElectronico }}">
+                        </div>
+                    </div>      
                 </div>
-                <div>
-                    <div>
-                        <label>Nombre:</label>
-                    </div>
-                    <div>
-                        <input name="nombre" class="form-control" value="{{ estudiante.nombre }}" disabled>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <label>Apellido:</label>
-                    </div>
-                    <div>
-                        <input name="apellido" class="form-control" value="{{ estudiante.apellidoPaterno }}" disabled>
-                    </div>
-                </div>            
-                <div>
-                    <div>
-                        <label>Direccion:</label>
-                    </div>
-                    <div>
-                        <input name="direccion" class="form-control" value="{{ estudiante.direccion }}">
-                    </div>
-                </div>
-                  <div>
-                    <div>
-                        <label>Teléfono:</label>
-                    </div>
-                    <div>
-                        <input name="telefono" class="form-control" value="{{ estudiante.telefono }}">
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <label>Correo:</label>
-                    </div>
-                    <div>
-                        <input name="correo" class="form-control" value="{{ estudiante.correoElectronico }}">
-                    </div>
-                </div>      
-            </div>
-            <input type="hidden" name="username" value="{{ estudiante.username }}">
-            <input type="submit" class="btn btn-primary" value="Guardar Cambios">
-        </form>
+                <input type="hidden" name="username" value="{{ estudiante.username }}">
+                <input type="submit" class="btn btn-primary" value="Guardar Cambios">
+            </form>
+        </div>
     </div>
-</div>
 
-<body>
- {% endblock %}
+    <body>
+    {% endblock %}
 
+{% else %}
+    <li>No tiene permiso para ver este sitio</li>
+    <form action="/nave/" method="get">         
+        <input type="submit" class="btn btn-primary" value="Volver">
+    </form> 
 {% endif %} 
-<li>No tiene permiso para ver este sitio</li>
-<form action="/nave/" method="get">         
-    <input type="submit" class="btn btn-primary" value="Volver">
-</form> 
+

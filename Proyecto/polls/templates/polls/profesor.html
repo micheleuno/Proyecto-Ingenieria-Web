@@ -1,18 +1,32 @@
+{% extends 'base2.html' %}
 {% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
-
 {% if user.is_authenticated and  user.profile.role == 2%}<!--Profesor-->	
 
-	<li>Bienvenido(a): {{ user.get_username }}</li>
+	{% block branding %}    
+        <p>Bienvenido(a): {{ user.get_username }}</p>
+        <p><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></p>    
+	{% endblock %}
 
-	  <li><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></li>   
+	{% block content %}
+	 	<form action="/nave/filtrar_ramos_profesor/" method="get">         
+	        <input type="submit" class="btn btn-primary" value="Ver ramos impartidos">
+	    </form> 
+ 	{% endblock %}
 
 
-	<li>Hola soy un profesor</li>
 
-	{% endif %} 
-<li>No tiene permiso para ver este sitio</li>
-<form action="/nave/" method="get">         
-    <input type="submit" class="btn btn-primary" value="Volver">
-</form> 
+
+
+
+
+
+
+
+
+
+{% else %}
+	<li>No tiene permiso para ver este sitio</li>
+	<form action="/nave/" method="get">         
+	    <input type="submit" class="btn btn-primary" value="Volver">
+	</form> 
+{% endif %} 
