@@ -2,12 +2,17 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and  user.profile.role == 2%}<!--Profesor-->	
+
 	<li>Bienvenido(a): {{ user.get_username }}</li>
 
-	  <li><a href="{% url 'logout'%}?next=/polls">Logout</a></li>   
+	  <li><a href="{% url 'logout'%}?next=/polls">Desconectarme</a></li>   
 
 
 	<li>Hola soy un profesor</li>
 
 	{% endif %} 
+<li>No tiene permiso para ver este sitio</li>
+<form action="/polls/" method="get">         
+    <input type="submit" class="btn btn-primary" value="Volver">
+</form> 

@@ -37,7 +37,7 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
-class ViewEstudiante(generic.ListView):
+class ViewEstudiante(LoginRequiredMixin, generic.ListView):
     model = Estudiante
     template_name = 'polls/estudiante.html'
  
@@ -46,17 +46,13 @@ class ViewEstudiante(generic.ListView):
 
         return Estudiante.objects.filter(username = self.request.user.username)
 
-class ViewRamosEstudiante(generic.ListView):
+class ViewRamosEstudiante(LoginRequiredMixin, generic.ListView):
     model = InscripcionAsignatura
     template_name = 'polls/ver_ramos_estudiante.html'
  
     def get_queryset(self):
-
-
         obj_estudiante = Estudiante.objects.get(username = self.request.user.username)
         lista = InscripcionAsignatura.objects.filter(estudiante=obj_estudiante.id)
-        print(obj_estudiante.username)
-        print(lista)
         return lista
 
 class Inscripciones:
@@ -69,12 +65,12 @@ class Inscripciones:
         self.estado = ''
 
 
-def filtrar_ramos_estudiante(request):
+def filtrar_ramos_estudiante(LoginRequiredMixin, request):
 
     obj_estudiante = Estudiante.objects.get(username = request.user.username)
     lista = InscripcionAsignatura.objects.filter(estudiante=obj_estudiante.id)
     lista_inscripciones = []
-    var_carrera = request.POST['carrera']
+    """var_carrera = request.POST['carrera']"""
     var_anno = request.POST['anno']
     var_semestre = request.POST['semestre'] 
     var_estado = request.POST['estado'] 
@@ -116,7 +112,7 @@ def filtrar_ramos_estudiante(request):
     context = {
         'usuario': obj_estudiante,
         'lista_inscripciones': lista_inscripciones,
-        'carrera' : var_carrera,
+       """ 'carrera' : var_carrera,"""
         'anno' : var_anno,
         'semestre' : var_semestre,
         'estado' : var_estado,
@@ -150,23 +146,10 @@ def guardar_estudiante(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Profesor(TemplateView):
+class Profesor(LoginRequiredMixin,TemplateView):
 	template_name = 'polls/profesor.html'
 
-class Administrador(TemplateView):
+class Administrador(LoginRequiredMixin,TemplateView):
 	template_name = 'polls/administrador.html'
 
 

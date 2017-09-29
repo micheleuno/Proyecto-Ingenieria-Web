@@ -1,6 +1,7 @@
 {% extends 'base2.html' %}
 {% load static %}
-{% if user.is_authenticated %}
+
+{% ifequal user.profile.role 1%} <!--Estudiante-->      
 {% block branding %}    
         <p>Bienvenido(a): {{ user.get_username }}</p>
         <p><a href="{% url 'logout'%}?next=/polls">Desconectarme</a></p>    
@@ -74,4 +75,7 @@
  {% endblock %}
 
 {% endif %} 
-
+<li>No tiene permiso para ver este sitio</li>
+<form action="/polls/" method="get">         
+    <input type="submit" class="btn btn-primary" value="Volver">
+</form> 

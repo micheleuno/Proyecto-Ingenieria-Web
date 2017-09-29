@@ -3,17 +3,17 @@
 
 {% if user.is_authenticated %}
 
-	{% ifequal user.profile.role 1%} <!--Estudiante-->		
+	{% if user.profile.role == 1%} <!--Estudiante-->		
 		 <meta http-equiv="REFRESH" content="0;url=/polls/estudiante">		
-	{% endifequal %} 
+	{% endif %} 
 
-	{% ifequal user.profile.role 2%} <!--Profesor-->
+	{% if user.profile.role == 2%} <!--Profesor-->
 	 <meta http-equiv="REFRESH" content="0;url=/polls/profesor">
-	{% endifequal %} 
+	{% endif %} 
 
-	{% ifequal user.profile.role 3%}  <!--Administrador-->
+	{% if user.profile.role == 3%}  <!--Administrador-->
 		 <meta http-equiv="REFRESH" content="0;url=/polls/administrador">
-	{% endifequal %}
+	{% endif %}
 	
 {% endif %} 
 
