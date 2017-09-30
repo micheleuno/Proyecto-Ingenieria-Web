@@ -25,6 +25,6 @@ CUENTAS
 	Usuario   : carlostapia  
 	Contraseña: password1234  
 
--Administrador  
+-Administrador:  
 	Usuario   : admin  
 	Contraseña: password1234 
