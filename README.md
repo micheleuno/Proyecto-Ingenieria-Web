@@ -16,7 +16,15 @@ EJECUTAR EL PROYECTO
 -Abrir la consola en la raiz del proyecto (la carpeta que contiene el archivo "manage.py") y ejecutar el comando "py manage.py runserver" en el caso de windows y "python manage.py runserver" en linux
 -Abrir en un navegador la dirección "http://localhost:8000/nave/"
 
-CUENTAS
--Estudiante:
-	Usuario   : micheledeconti
-	Contraseña: password1234
+CUENTAS  
+-Estudiante:   
+	Usuario   : micheledeconti  
+	Contraseña: password1234  
+	
+-Profesor:
+	Usuario   : carlostapia  
+	Contraseña: password1234  
+
+-Administrador  
+	Usuario   : admin  
+	Contraseña: password1234 
