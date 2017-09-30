@@ -196,7 +196,8 @@ def filtrar_ramos_profesor(request):
             'anno' : var_anno,
             'semestre' : var_semestre,
             'nombre' : var_asignatura,
-            'carrera' : var_carrera
+            'carrera' : var_carrera,
+            'asignatura' : var_asignatura
         }
 
     	return render(request, 'polls/ver_ramos_profesor.html', context)
@@ -283,7 +284,8 @@ def filtrar_alumnos_profesor(request):
             'nombreE' : var_nombreE,
             'apellidoP' : var_apellidoP,
             'apellidoM' : var_apellidoM,
-            'carrera' : var_carrera
+            'carrera' : var_carrera,
+            'asignatura' : var_asignatura
         }
     	return render(request, 'polls/ver_alumnos_profesor.html', context)
     else:
