@@ -1,0 +1,66 @@
+{% extends 'base2.html' %}
+{% load render_table from django_tables2 %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+{% if user.autenticated and user.profile.role == 2%} <!--Estudiante-->
+{% block branding %}    
+        <p>Bienvenido(a): {{ user.get_username }}</p>
+        <p><a href="{% url 'logout'%}?next=/nave">Desconectarme</a></p>    
+{% endblock %}
+
+{% block content %}
+  <div>
+     <h1>Ramos Impartidos</h1>
+            <h2>Filtros:</h2>
+        <form action="/nave/filtrar_ramos_profesor/" method="post">
+            {% csrf_token %}    
+             <table summary="no_orderDate">   
+            <tr><th>Nombre Asignatura</th><th>Carrera</th><th>Semestre</th><th>Año</th><th></th>
+              <tr>
+                 <td> <input class="form-control" value="{{ asignatura }}" name ="asignatura"> </td>
+                 <td> <input class="form-control" value="{{ carrera }}" name ="carrera"> </td>              
+                <td>  <input class="form-control" value="{{ semestre }}" name ="semestre"></td>
+                   <td> <input class="form-control" value="{{ anno }}" name ="anno"></td>
+                 
+               <!-- <td> <input class="form-control" value="" name ="carrera"></td>-->  
+            </tr>     
+                </tr>   
+            </table>    
+
+            <input type="hidden" name ="username" value="{{ usuario.username }}">
+            <input type="submit" class="btn btn-primary" value="Buscar">
+        </form> 
+    </div>
+
+
+
+
+
+   <h2>Mis Ramos Impartidos</h2>
+    <ul>
+            <table summary="no_orderDate">
+            <tr><th>Asignatura</th><th>Carrera</th><th>Semestre</th><th>Año</th><th>Alumnos Inscritos</th></th>
+
+            {% for obj in lista_inscripciones %}              
+                    <tr><td>{{ obj.nombre }}</td><td>{{ obj.carrera }}</td><td>{{ obj.semestre }}</td><td>{{ obj.anno }}</td><td>{{ obj.inscritos }}</td></tr>               
+            {% endfor %}
+            </table>     
+
+    </ul>
+    <form action="/nave/profesor/" method="get">         
+   
+    <input type="submit" class="btn btn-primary" value="Volver">
+</form> 
+
+{% endblock %}
+
+    {% else %}
+<li>No tiene permiso para ver este sitio</li>
+<form action="/nave/" method="get">         
+    <input type="submit" class="btn btn-primary" value="Volver">
+</form> 
+
+{% endif %} 
+
+
